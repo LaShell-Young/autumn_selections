@@ -1,0 +1,64 @@
+package com.young.autumn.autumn_selections.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+
+import com.young.autumn.autumn_selections.repositories.ActivitiesRepo;
+import com.young.autumn.autumn_selections.models.Activity;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.bson.types.ObjectId;
+
+@Service
+public class ActivitiesService {
+    @Autowired
+    ActivitiesRepo activitiesRepo;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    public List<Activity> allActivities(){
+        return activitiesRepo.findAll();
+    }
+
+    public Optional<Activity> activityById(ObjectId id){
+        return activitiesRepo.findById(id);
+    }
+
+    public List<Activity> getByType(String type){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("type").regex(type, "i"));
+        List<Activity> activities = mongoTemplate.find(query, Activity.class, "activities");
+
+        return activities;
+    }
+
+    public Optional<Activity> getByName(String name){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("name").regex(name, "i"));
+        Optional<Activity> activity = Optional.of(mongoTemplate.findOne(query, Activity.class, "activities"));
+
+        return activity;
+    }
+    
+    public List<Activity> getByRating(int rating){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("rating").is(rating));
+        List<Activity> activities = mongoTemplate.find(query, Activity.class, "activities");
+
+        return activities;
+    }
+    
+    public List<Activity> getByStatus(String status){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("status").regex(status, "i"));
+        List<Activity> activities = mongoTemplate.find(query, Activity.class, "activities");
+
+        return activities;
+    }
+}
