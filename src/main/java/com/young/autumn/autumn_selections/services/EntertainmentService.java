@@ -6,13 +6,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
 
 import com.young.autumn.autumn_selections.repositories.EntertainmentRepo;
 import com.young.autumn.autumn_selections.models.Entertainment;
-import com.mongodb.client.MongoCollection;
 
 import java.util.ArrayList;
 import java.util.HashSet;
