@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,5 +54,24 @@ public class ActivitiesController {
     @GetMapping("/status/{status}")
     public ResponseEntity<List<Activity>> getActivityByStatus(@PathVariable String status){
         return new ResponseEntity<>(activitiesService.getByStatus(status), HttpStatus.OK);
+    }
+
+    /***************** POST MAPPINGS  ***********************/
+    @PostMapping("/update/status")
+    @ResponseBody
+    public ResponseEntity<Optional<Activity>> updateStatus(
+        @RequestParam(required = true) ObjectId id,
+        @RequestParam(required = true) String status
+    ){
+        return new ResponseEntity<>(activitiesService.updateStatus(id, status), HttpStatus.OK);
+    }
+    
+    @PostMapping("/update/rate")
+    @ResponseBody
+    public ResponseEntity<Optional<Activity>> updateRating(
+        @RequestParam(required = true) ObjectId id,
+        @RequestParam(required = true) int rating
+    ){
+        return new ResponseEntity<>(activitiesService.updateRating(id, rating), HttpStatus.OK);
     }
 }

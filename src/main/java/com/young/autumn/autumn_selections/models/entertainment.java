@@ -24,7 +24,9 @@ public class Entertainment {
     private String title;
     private String poster;
     private String trailerLink;
+    private List<String> backdrops;
     private List<String> genre;
     private int rating;
+    private boolean hasWatched;
 
 }
