@@ -69,12 +69,17 @@ public class EntertainmentService {
         return repository.findById(id);
     }
     
-    public Optional<Entertainment> entertainmentByTitle(String title){
+    public List<Entertainment> entertainmentByTitle(String title){
+        List<Entertainment> result = new ArrayList<>();
+
         Query query = new Query();
         query.addCriteria(Criteria.where("title").regex(title, "i"));
-        Optional<Entertainment> entertainment = Optional.of(mongoTemplate.findOne(query, Entertainment.class, "entertainment"));
+        Entertainment entertainment =  mongoTemplate.findOne(query, Entertainment.class, "entertainment");
 
-        return entertainment;
+        if(entertainment != null){
+            result.add(entertainment);
+        }
+        return result;
     }
     
     public List<Entertainment> entertainmentByType(String type){

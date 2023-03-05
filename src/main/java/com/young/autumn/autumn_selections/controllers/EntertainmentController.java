@@ -51,7 +51,7 @@ public class EntertainmentController {
     @CrossOrigin
     @GetMapping("/title/{title}")
     @ResponseBody
-    public ResponseEntity<Optional<Entertainment>> getById(@PathVariable String title){
+    public ResponseEntity<List<Entertainment>> getByTitle(@PathVariable String title){
         return new ResponseEntity<>(service.entertainmentByTitle(title), HttpStatus.OK);
     }
 
@@ -65,7 +65,7 @@ public class EntertainmentController {
     @CrossOrigin
     @GetMapping("/rate/{rating}")
     @ResponseBody
-    public ResponseEntity<List<Entertainment>> getByType(@PathVariable int rating){
+    public ResponseEntity<List<Entertainment>> getByRating(@PathVariable int rating){
         return new ResponseEntity<>(service.entertainmentByRate(rating), HttpStatus.OK);
     }
 
