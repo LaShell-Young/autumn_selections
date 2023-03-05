@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import com.young.autumn.autumn_selections.repositories.ActivitiesRepo;
 import com.young.autumn.autumn_selections.models.Activity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -67,12 +68,17 @@ public class ActivitiesService {
         return activities;
     }
 
-    public Optional<Activity> getByName(String name){
+    public List<Activity> getByName(String name){
+        List<Activity> result = new ArrayList<>();
+
         Query query = new Query();
         query.addCriteria(Criteria.where("name").regex(name, "i"));
-        Optional<Activity> activity = Optional.of(mongoTemplate.findOne(query, Activity.class, "activities"));
+        Activity activity = mongoTemplate.findOne(query, Activity.class, "activities");
 
-        return activity;
+        if(activity != null){
+            result.add(activity);
+        }
+        return result;
     }
     
     public List<Activity> getByRating(int rating){

@@ -47,7 +47,7 @@ public class ActivitiesController {
 
     @CrossOrigin
     @GetMapping("/name/{name}")
-    public ResponseEntity<Optional<Activity>> getActivityByName(@PathVariable String name){
+    public ResponseEntity<List<Activity>> getActivityByName(@PathVariable String name){
         return new ResponseEntity<>(activitiesService.getByName(name), HttpStatus.OK);
     }
 
