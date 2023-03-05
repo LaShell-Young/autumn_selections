@@ -69,16 +69,13 @@ public class ActivitiesService {
     }
 
     public List<Activity> getByName(String name){
-        List<Activity> result = new ArrayList<>();
+        List<Activity> activity = new ArrayList<>();
 
         Query query = new Query();
         query.addCriteria(Criteria.where("name").regex(name, "i"));
-        Activity activity = mongoTemplate.findOne(query, Activity.class, "activities");
+        activity = mongoTemplate.find(query, Activity.class, "activities");
 
-        if(activity != null){
-            result.add(activity);
-        }
-        return result;
+        return activity;
     }
     
     public List<Activity> getByRating(int rating){

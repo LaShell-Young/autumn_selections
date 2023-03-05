@@ -70,16 +70,13 @@ public class EntertainmentService {
     }
     
     public List<Entertainment> entertainmentByTitle(String title){
-        List<Entertainment> result = new ArrayList<>();
+        List<Entertainment> entertainment = new ArrayList<>();
 
         Query query = new Query();
         query.addCriteria(Criteria.where("title").regex(title, "i"));
-        Entertainment entertainment =  mongoTemplate.findOne(query, Entertainment.class, "entertainment");
+        entertainment =  mongoTemplate.find(query, Entertainment.class, "entertainment");
 
-        if(entertainment != null){
-            result.add(entertainment);
-        }
-        return result;
+        return entertainment;
     }
     
     public List<Entertainment> entertainmentByType(String type){
